@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class UnitMapper {
 
-    // dtoToEntity - სრული სახელები დაარქვი ხოლმე
     public static Unit toEntity(UnitDTO dto) {
         Unit entity = new Unit();
 
@@ -21,7 +20,6 @@ public class UnitMapper {
         entity.setEffectiveStartDate(dto.getEffectiveStartDate());
         entity.setParentId(dto.getParentId());
 
-        /// კონსტანტად გქონდეს ხოლმე მსგავსი მნიშვნელობები. private static final String PRESENT = "Present";
         if (dto.getEffectiveEndDate().equals("Present")) {
             entity.setEffectiveEndDate(null);
         } else {
@@ -53,7 +51,6 @@ public class UnitMapper {
         if (!Objects.isNull(entity.getEffectiveEndDate())) {
             dto.setEffectiveEndDate(entity.getEffectiveEndDate().toString());
         } else {
-            // აქაც იგივე
             dto.setEffectiveEndDate("Present");
         }
         dto.setType(entity.getType());

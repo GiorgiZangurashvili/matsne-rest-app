@@ -36,12 +36,9 @@ public class UnitService {
     }
 
     public Optional<UnitDTO> findById(long id) {
-        // private static final String EXCEPTION_MESSAGE = "Unit with id = %s was not found"; 
-        // String.format(EXCEPTION_MESSAGE, id); 
         Unit unit = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Unit with id = " + id + " was not found"));
         if (unit.getType() != Type.ARTICLE) {
             unit.setChildren(new ArrayList<>());
-            // მაპინგი შეგიძლი კონტროლერშიც გააკეთო არ არის პრობლემა. 
             return Optional.of(UnitMapper.toDTO(unit));
         } else {
             //fetch all children with full depth
@@ -69,8 +66,6 @@ public class UnitService {
     public UnitDTO save(UnitDTO dto) {
         if (dto.getParentId() != null) {
             Unit parent = repository.findById(dto.getParentId())
-                // private static final String EXCEPTION_MESSAGE = "Unit with id = %s was not found"; 
-        // String.format(EXCEPTION_MESSAGE, dto.getParentId()); 
                     .orElseThrow(() -> new EntityNotFoundException("Parent with id = " + dto.getParentId() + " was not found"));
             UnitValidator.validateUnitOnSave(dto, parent);
         } else {
